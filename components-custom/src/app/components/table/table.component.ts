@@ -46,6 +46,22 @@ export type ButtonsOptions = {
   class?: string
 }
 
+export type SelectOptions = {
+  /** Key en el *data* que es desplegable *select* */
+  selectedKey: string
+  /** Key en el *data* que contiene los *values* del desplegable @see {@link Selected}*/
+  selectKeyValues: string,
+  /** Clase para el select */
+  class?: string,
+  disabled?: boolean,
+  callback?: (ev: SelectedChange) => void
+}
+
+export type SelectedChange = {
+  item: CustomItem
+  selected: string
+}
+
 @Component({
   selector: 'app-table',
   standalone: true,
@@ -58,9 +74,15 @@ export class TableComponent {
   headArray = input.required<HeadTable[]>()
   gridArray = input.required<CustomItem[]>()
   buttonsOptions = input<ButtonsOptions>()
+  selectOptions = input<SelectOptions>()
 
   protected onButtonsOptionsClick(item: CustomItem, button: ButtonOptions) {
     item && button.callback?.(item)
+  }
+
+  protected onSelectOptionsClick(item: CustomItem, select: SelectOptions, event: Event){
+    const selected = (event.target as HTMLSelectElement).value
+    item && select.callback?.({item, selected})
   }
   
   /** Opciones pasadas e options (key: value) */

@@ -1,11 +1,13 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ButtonsOptions, CustomItem, HeadTable, Options, TableComponent } from "./components/table/table.component";
+import { ButtonsOptions, CustomItem, HeadTable, Options, SelectOptions, TableComponent } from "./components/table/table.component";
 
 export interface User{
   nombre: string;
   email: string;
   rol: string;
+  // listaOpciones?: Record<string, string>;
+  listaOpciones?: string[];
 }
 
 export interface TableRow {
@@ -19,17 +21,26 @@ const Arrayusuarios: User[] = [
   {
     nombre: "usuario1",
     email: "usuario1@example.com",
-    rol: "admin"
+    rol: "admin",
+    listaOpciones: [
+      'Seleccione una tarea','Opcion 1'
+    ]
   },
   {
     nombre: "usuario2",
     email: "usuario2@example.com",
-    rol: "usuario"
+    rol: "usuario",
+    listaOpciones: [
+      'Seleccione una tarea','Opcion 1'
+    ]
   },
   {
     nombre: "usuario3",
     email: "usuario3@example.com",
-    rol: "usuario"
+    rol: "usuario",
+    listaOpciones: [
+      'Seleccione una tarea','Opcion 1'
+    ]
   }
 ]
 
@@ -55,7 +66,8 @@ export class AppComponent {
     {head: 'Nombre', fieldName: 'nombre'},
     {head: 'Email', fieldName: 'email'}, 
     {head: 'Rol', fieldName: 'rol'},
-    {head: 'Opciones', fieldName: 'buttonsOptions'}
+    {head: 'Opciones', fieldName: 'buttonsOptions'},
+    {head: 'Elecciones', fieldName: 'selectsOptions'}
   ])
   gridArray = signal<User[]>(Arrayusuarios)
   buttonsArray = signal<ButtonsOptions>({
@@ -77,6 +89,12 @@ export class AppComponent {
     }
   ]
   })
+  selectArray = signal<SelectOptions>({
+    selectedKey: 'email',
+    selectKeyValues: 'listaOpciones',
+    callback: (tareaAux) => this.onCallBackSelect(tareaAux)
+  })
+
   // headTable = signal<Options>({'id': 'Id', 'name': 'Name', 'age': 'Age', 'email': 'Email'})
   headTable = signal<HeadTable[]>([
     {head: 'Id', fieldName: 'id'},
@@ -98,6 +116,10 @@ export class AppComponent {
   })
 
   protected onCallBack(ev: CustomItem){
+    console.log("ev", ev)
+  }
+
+  protected onCallBackSelect(ev: CustomItem){
     console.log("ev", ev)
   }
 }

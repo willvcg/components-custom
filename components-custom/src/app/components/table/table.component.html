@@ -17,6 +17,15 @@
                     <button (click)="onButtonsOptionsClick(item, button)">{{button.title}}</button>                  
                   }
                 }
+                @case ("selectsOptions") {
+                  @if (selectOptions(); as selectOptions) {
+                    <select (change)="onSelectOptionsClick(item, selectOptions, $event)">
+                      @for (opcion of item[selectOptions.selectKeyValues]; track opcion) {
+                        <option [value]="opcion">{{ opcion }}</option>
+                      }
+                    </select>                  
+                  }
+                }
                 @default {
                   {{item[head.fieldName]}}
                 }
