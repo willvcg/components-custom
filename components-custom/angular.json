@@ -6,20 +6,20 @@
     "components-custom": {
       "projectType": "application",
       "schematics": {},
-      "root": "",
-      "sourceRoot": "src",
+      "root": "components-custom",
+      "sourceRoot": "components-custom/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/components-custom",
-            "index": "src/index.html",
-            "browser": "src/main.ts",
+            "index": "components-custom/src/index.html",
+            "browser": "components-custom/src/main.ts",
             "polyfills": [
               "zone.js"
             ],
-            "tsConfig": "tsconfig.app.json",
+            "tsConfig": "components-custom/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
               "src/assets"
