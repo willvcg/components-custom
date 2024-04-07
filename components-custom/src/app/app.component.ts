@@ -15,6 +15,7 @@ export interface TableRow {
   name: string;
   age: number;
   email: string;
+  listado?: string[];
 }
 
 const Arrayusuarios: User[] = [
@@ -45,11 +46,11 @@ const Arrayusuarios: User[] = [
 ]
 
 export const sampleData: TableRow[] = [
-  { id: 1, name: "John Doe", age: 30, email: "john@example.com" },
-  { id: 2, name: "Jane Smith", age: 25, email: "jane@example.com" },
-  { id: 3, name: "Alice Johnson", age: 35, email: "alice@example.com" },
-  { id: 4, name: "Bob Brown", age: 40, email: "bob@example.com" },
-  { id: 5, name: "Eve Wilson", age: 28, email: "eve@example.com" }
+  { id: 1, name: "John Doe", age: 30, email: "john@example.com", listado: ['primero', 'segundo'] },
+  { id: 2, name: "Jane Smith", age: 25, email: "jane@example.com", listado: ['primero', 'segundo'] },
+  { id: 3, name: "Alice Johnson", age: 35, email: "alice@example.com", listado: ['primero', 'segundo'] },
+  { id: 4, name: "Bob Brown", age: 40, email: "bob@example.com", listado: ['primero', 'segundo'] },
+  { id: 5, name: "Eve Wilson", age: 28, email: "eve@example.com", listado: ['primero', 'segundo'] }
 ];
 
 @Component({
@@ -101,7 +102,8 @@ export class AppComponent {
     {head: 'Name', fieldName: 'name'}, 
     {head: 'Age', fieldName: 'age'},
     {head: 'Email', fieldName: 'email'},
-    {head: 'Opciones', fieldName: 'buttonsOptions'}
+    {head: 'Opciones', fieldName: 'buttonsOptions'},
+    {head: 'Opciones', fieldName: 'selectsOptions'}
   ])
   dataTable = signal<TableRow[]>(sampleData)
   buttonsTabla = signal<ButtonsOptions>({
@@ -113,6 +115,11 @@ export class AppComponent {
         this.onCallBack(ev)
       },
     }]
+  })
+  selectTable = signal<SelectOptions>({
+    selectedKey: 'rol',
+    selectKeyValues: 'listado',
+    callback: (tareaAux) => this.onCallBackSelect(tareaAux)
   })
 
   protected onCallBack(ev: CustomItem){
