@@ -1,9 +1,38 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
+import { SafeValue } from '@angular/platform-browser';
 
 export interface Usuario {
   nombre: string;
   email: string;
   rol: string;
+}
+
+export interface HeadTable {
+  head: string;
+  fieldName: string;
+}
+
+export type CustomItem<T = Options> = Record<Extract<keyof T, string>, any> & RecordOptions
+
+export type Options = Record<string , string>
+
+export type RecordOptions = {
+  /** Opciones para el collapse */
+  collapse?: CollapseOptions
+  /** Clase CSS personalizada de la fila */
+  rowClass?: string
+  /** Contenido HTML personalizado */
+  innerHtml?: string
+  /** Segundo contendido HTML personalizado */
+  innerHtml2?: string | SafeValue
+  /** Clase personalizada para cada columna de cada registro. Por orden */
+  classes?: string[]
+}
+
+export type CollapseOptions = {
+  /** HTML */
+  inner: string,
+  class?: string,
 }
 
 @Component({
@@ -14,9 +43,21 @@ export interface Usuario {
   styleUrl: './table.component.css'
 })
 export class TableComponent {
-  protected usuarios = signal<Usuario[]>( [
-    {nombre: 'Juan', email:'juan@example.com', rol:'Administrador'},
-    {nombre: 'María', email:'maria@example.com', rol:'Editor'},
-    {nombre: 'Pedro', email:'pedro@example.com', rol:'Lector'}
-  ]);
+
+  headArray = input.required<HeadTable[]>()
+  gridArray = input.required<CustomItem[]>()
+
+  headOptions = computed(()=> {
+    const head = this.headArray();
+    if(!head) return;
+    return head
+  })
+
+  
+  /** Opciones pasadas e options (key: value) */
+  // protected op = computed(()=> {
+  //   const headArray = this.headArray()
+  //   const objects = Object.entries(headArray)
+  //   return objects
+  // })
 }

@@ -1,19 +1,20 @@
 <table>
     <thead>
       <tr>
-        <th>Nombre</th>
-        <th>Correo electrónico</th>
-        <th>Rol</th>
+        @for (head of headOptions(); track head.head) {
+          <th>{{head.head}}</th>
+        }
       </tr>
     </thead>
     <tbody>
-        @for (usuario of usuarios(); track usuario.email) {
-      <tr >
-        <td>{{ usuario.nombre }}</td>
-        <td>{{ usuario.email }}</td>
-        <td>{{ usuario.rol }}</td>
-      </tr>
-    }
+      @for (item of gridArray(); track item) {
+        <tr>
+          @for (head of headOptions(); track head.head) {
+            <td>
+              {{item[head.fieldName]}}
+            </td>
+          }
+        </tr>
+      }
     </tbody>
   </table>
-  
