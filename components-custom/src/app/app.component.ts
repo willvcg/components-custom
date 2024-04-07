@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CustomItem, HeadTable, Options, TableComponent } from "./components/table/table.component";
+import { ButtonsOptions, CustomItem, HeadTable, Options, TableComponent } from "./components/table/table.component";
 
 export interface User{
   nombre: string;
@@ -55,26 +55,49 @@ export class AppComponent {
     {head: 'Nombre', fieldName: 'nombre'},
     {head: 'Email', fieldName: 'email'}, 
     {head: 'Rol', fieldName: 'rol'},
-    {head: 'Action', fieldName: ''}
+    {head: 'Opciones', fieldName: 'buttonsOptions'}
   ])
   gridArray = signal<User[]>(Arrayusuarios)
-
-
+  buttonsArray = signal<ButtonsOptions>({
+    buttons: [{
+      title:'Create',
+      class: '',
+      tooltip: '',
+      callback: (ev) => {
+        this.onCallBack(ev)
+      },
+    },
+    {
+      title:'Delete',
+      class: '',
+      tooltip: '',
+      callback: (ev) => {
+        this.onCallBack(ev)
+      },
+    }
+  ]
+  })
   // headTable = signal<Options>({'id': 'Id', 'name': 'Name', 'age': 'Age', 'email': 'Email'})
   headTable = signal<HeadTable[]>([
     {head: 'Id', fieldName: 'id'},
     {head: 'Name', fieldName: 'name'}, 
     {head: 'Age', fieldName: 'age'},
-    {head: 'Email', fieldName: 'email'}
+    {head: 'Email', fieldName: 'email'},
+    {head: 'Opciones', fieldName: 'buttonsOptions'}
   ])
   dataTable = signal<TableRow[]>(sampleData)
+  buttonsTabla = signal<ButtonsOptions>({
+    buttons: [{
+      title:'Edit',
+      class: '',
+      tooltip: '',
+      callback: (ev) => {
+        this.onCallBack(ev)
+      },
+    }]
+  })
 
-
-  protected onEditUser(event: CustomItem){
-    console.log("onEditUser", event)
-  }
-
-  protected onDeleteUser(event: CustomItem){
-    console.log("onDeleteUser", event)
+  protected onCallBack(ev: CustomItem){
+    console.log("ev", ev)
   }
 }

@@ -11,13 +11,16 @@
         <tr>
           @for (head of headArray(); track head.head) {
             <td>
-               @if (head.fieldName !== '') {
-                {{item[head.fieldName]}}
-               }
-               @if (head.fieldName === '') {
-                <button (click)="onEditTable(item)">Edit</button>
-                <button (click)="onDeleteTable(item)">Delete</button>
-               }
+               @switch (head.fieldName) {
+                @case ("buttonsOptions") {
+                  @for (button of buttonsOptions()?.buttons; track button) {
+                    <button (click)="onButtonsOptionsClick(item, button)">{{button.title}}</button>                  
+                  }
+                }
+                @default {
+                  {{item[head.fieldName]}}
+                }
+              }               
             </td>
           }
         </tr>

@@ -35,6 +35,17 @@ export type CollapseOptions = {
   class?: string,
 }
 
+export type ButtonOptions = {
+  title: string,
+  class?: string,
+  tooltip?: string,
+  callback: (ev: any) => void
+}
+export type ButtonsOptions = {
+  buttons: ButtonOptions[],
+  class?: string
+}
+
 @Component({
   selector: 'app-table',
   standalone: true,
@@ -46,16 +57,10 @@ export class TableComponent {
 
   headArray = input.required<HeadTable[]>()
   gridArray = input.required<CustomItem[]>()
-  onEdit = output<CustomItem>()
-  onDelete = output<CustomItem>()
-  
-  
-  protected onEditTable(event: CustomItem){
-    this.onEdit.emit(event)
-  }
+  buttonsOptions = input<ButtonsOptions>()
 
-  protected onDeleteTable(event: CustomItem){
-    this.onDelete.emit(event)
+  protected onButtonsOptionsClick(item: CustomItem, button: ButtonOptions) {
+    item && button.callback?.(item)
   }
   
   /** Opciones pasadas e options (key: value) */
