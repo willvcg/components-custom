@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeadTable, Options, TableComponent } from "./components/table/table.component";
+import { CustomItem, HeadTable, Options, TableComponent } from "./components/table/table.component";
 
 export interface User{
   nombre: string;
@@ -54,7 +54,8 @@ export class AppComponent {
   headArray = signal<HeadTable[]>([
     {head: 'Nombre', fieldName: 'nombre'},
     {head: 'Email', fieldName: 'email'}, 
-    {head: 'Rol', fieldName: 'rol'}
+    {head: 'Rol', fieldName: 'rol'},
+    {head: 'Action', fieldName: ''}
   ])
   gridArray = signal<User[]>(Arrayusuarios)
 
@@ -67,4 +68,13 @@ export class AppComponent {
     {head: 'Email', fieldName: 'email'}
   ])
   dataTable = signal<TableRow[]>(sampleData)
+
+
+  protected onEditUser(event: CustomItem){
+    console.log("onEditUser", event)
+  }
+
+  protected onDeleteUser(event: CustomItem){
+    console.log("onDeleteUser", event)
+  }
 }

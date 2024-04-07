@@ -1,4 +1,4 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, input, output, signal } from '@angular/core';
 import { SafeValue } from '@angular/platform-browser';
 
 export interface Usuario {
@@ -46,6 +46,17 @@ export class TableComponent {
 
   headArray = input.required<HeadTable[]>()
   gridArray = input.required<CustomItem[]>()
+  onEdit = output<CustomItem>()
+  onDelete = output<CustomItem>()
+  
+  
+  protected onEditTable(event: CustomItem){
+    this.onEdit.emit(event)
+  }
+
+  protected onDeleteTable(event: CustomItem){
+    this.onDelete.emit(event)
+  }
   
   /** Opciones pasadas e options (key: value) */
   // protected op = computed(()=> {

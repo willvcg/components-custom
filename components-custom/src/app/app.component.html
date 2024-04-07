@@ -1,2 +1,2 @@
-<app-table [headArray]="headArray()" [gridArray]="gridArray()"/>
+<app-table [headArray]="headArray()" [gridArray]="gridArray()" (onEdit)="onEditUser($event)" (onDelete)="onDeleteUser($event)"/>
 <app-table [headArray]="headTable()" [gridArray]="dataTable()"/>

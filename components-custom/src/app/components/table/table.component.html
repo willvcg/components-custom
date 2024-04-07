@@ -11,7 +11,13 @@
         <tr>
           @for (head of headArray(); track head.head) {
             <td>
-              {{item[head.fieldName]}}
+               @if (head.fieldName !== '') {
+                {{item[head.fieldName]}}
+               }
+               @if (head.fieldName === '') {
+                <button (click)="onEditTable(item)">Edit</button>
+                <button (click)="onDeleteTable(item)">Delete</button>
+               }
             </td>
           }
         </tr>
