@@ -1,7 +1,7 @@
 <table>
     <thead>
       <tr>
-        @for (head of headOptions(); track head.head) {
+        @for (head of headArray(); track head.head) {
           <th>{{head.head}}</th>
         }
       </tr>
@@ -9,7 +9,7 @@
     <tbody>
       @for (item of gridArray(); track item) {
         <tr>
-          @for (head of headOptions(); track head.head) {
+          @for (head of headArray(); track head.head) {
             <td>
               {{item[head.fieldName]}}
             </td>

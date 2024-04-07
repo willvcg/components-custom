@@ -46,13 +46,6 @@ export class TableComponent {
 
   headArray = input.required<HeadTable[]>()
   gridArray = input.required<CustomItem[]>()
-
-  headOptions = computed(()=> {
-    const head = this.headArray();
-    if(!head) return;
-    return head
-  })
-
   
   /** Opciones pasadas e options (key: value) */
   // protected op = computed(()=> {
